@@ -8,6 +8,7 @@ Route::prefix('/Home')->group(function () {
     Route::get('/{slug}', [HomeController::class, 'index'])->name('home');
 });
 
+//Criar Controlador
 Route::get('/login', [EnderecoController::class,'index'])->name('login');
 
 Route::prefix('/Endereco')->group(function(){
@@ -20,6 +21,6 @@ Route::prefix('/Endereco')->group(function(){
 });
 
 
-//Route::Fallback(function(){
-//    return redirect()->away('https://www.google.com');
-//});
+Route::Fallback(function(){
+    return redirect()->away(Env('APP_URL_FALLBACK'));
+});
