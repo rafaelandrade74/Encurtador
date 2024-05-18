@@ -5,9 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EnderecoController;
 use App\Http\Controllers\HomeController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 Route::prefix('/Home')->group(function () {
     Route::get('/{slug}', [HomeController::class, 'index'])->name('home');
 });
