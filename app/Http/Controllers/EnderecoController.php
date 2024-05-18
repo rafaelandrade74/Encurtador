@@ -42,7 +42,7 @@ class EnderecoController extends Controller
             $endereco->id_usuario = $usuario->id;
             $endereco->save();
         }
-        redirect()->route('endereco');
+        return redirect()->route('endereco');
     }
 
     /**
