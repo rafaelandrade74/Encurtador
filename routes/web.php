@@ -7,7 +7,7 @@ use App\Http\Controllers\HomeController;
 
 
 Route::prefix('/Home')->group(function () {
-    Route::get('/{slug}', [HomeController::class, 'index'])->name('home');
+    Route::get('/{slug?}', [HomeController::class, 'index'])->name('home');
 });
 
 Route::get('/dashboard', function () {

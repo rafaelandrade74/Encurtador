@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Endereco;
 use Illuminate\Http\Request;
+use function PHPUnit\Framework\isNull;
 
 class EnderecoController extends Controller
 {
@@ -19,9 +20,9 @@ class EnderecoController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
@@ -29,7 +30,19 @@ class EnderecoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $slug = $request->get('slug');
+        $slug_para = $request->get('slug_para');
+
+        $jaExiste = Endereco::where('slug_para', $slug_para)->first();
+        if($jaExiste == null){
+            $usuario = auth()->user();
+            $endereco = new Endereco();
+            $endereco->slug = $slug;
+            $endereco->slug_para = $slug_para;
+            $endereco->id_usuario = $usuario->id;
+            $endereco->save();
+        }
+        redirect()->route('endereco');
     }
 
     /**
