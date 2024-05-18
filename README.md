@@ -5,7 +5,7 @@
 - Rota /home/{slug} utilizada para redirecionar;
 - Libs:
   - [Vite.js](https://vitejs.dev/);
-  - [bootstrap-v5](https://getbootstrap.com/);
+  - ~~[bootstrap-v5](https://getbootstrap.com/)~~;
   - [bootstrapIcons](https://icons.getbootstrap.com/);
   - [alpinejs](https://alpinejs.dev/);
   - [axios](https://github.com/axios/axios);

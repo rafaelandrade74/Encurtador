@@ -3,76 +3,130 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Endereço') }}
         </h2>
-        <div class="position-relative">
-            <div class="col-0 position-absolute bottom-0 end-0 me-1 mt-2 mb-1">
-                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#adicionarEndereco" ><i class="bi bi-plus-circle"></i>Add</button>
-            </div>
-        </div>
     </x-slot>
+    <div class="rounded-lg border border-gray-200 m-5 px-1 py-8 sm:px-8">
+        <div class="overflow-x-auto rounded-t-lg text-end pb-5 pt-1 px-4">
+            <a href="#" class="inline-block border-e rounded bg-blue-800 px-4 py-2 text-xs font-medium text-white hover:bg-blue-600">
+                <i class="bi bi-plus-circle"></i> Adicionar
+            </a>
+        </div>
+        <div class="overflow-x-auto rounded-t-lg">
+            <table class="border-collapse w-full border border-slate-400 bg-white text-sm shadow-sm">
+                <thead class="bg-slate-50">
+                <tr>
+                    <th class="w-1 border border-slate-300 font-semibold p-4 text-slate-900 text-left">#</th>
+                    <th class="w-1/2 border border-slate-300 font-semibold p-4 text-slate-900 text-left">De</th>
+                    <th class="w-1/2 border border-slate-300 font-semibold p-4 text-slate-900 text-left">Para</th>
+                    <th class="w-1 border border-slate-300 font-semibold p-4 text-slate-900 text-left">#Ação</th>
+                </tr>
+                </thead>
+                <tbody>
+                @forelse($enderecos as $endereco)
+                    <tr>
+                        <td class="border border-slate-300 p-4 text-black-500">{{$endereco->id}}</td>
+                        <td class="border border-slate-300 p-4 text-black-500">
+                            <a href="{{route('home',['slug'=> $endereco->slug])}}"
+                               target="_blank">{{route('home',['slug'=> $endereco->slug])}}</a>
+                        </td>
+                        <td class="border border-slate-300 p-4 text-black-500">{{$endereco->slug_para}}</td>
+                        <td class="border order-slate-300 whitespace-nowrap px-4 py-2">
+						<span class="inline-flex overflow-hidden rounded-md border bg-white shadow-sm">
+							<a href="{{route('endereco.edit',['endereco'=> $endereco->id])}}"
+                               class="inline-block border-e p-5 rounded bg-indigo-800 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-600">
+								<i class="bi bi-pencil-square"></i> Editar
+							</a>
+							<a href="#DELETE"
+                               class="inline-block border-l p-5 rounded border-black bg-red-700 px-4 py-2 text-xs font-medium text-white hover:hover:bg-red-400">
+								<i class="bi bi-pencil-square"></i> Deletar
+							</a>
+						</span>
+                        </td>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+                    </tr>
+                @empty
+                    <tr>
+                        <th colspan="4">Não tem valores a exibir :)</th>
+                    </tr>
+                @endforelse
+                </tbody>
+            </table>
+        </div>
 
-                    <table class="table table-bordered">
-                        <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">De</th>
-                            <th scope="col">Para</th>
-                            <th scope="col">#Ação</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-{{--                        https://icons.getbootstrap.com/icons/pencil-square/--}}
-                        @forelse($enderecos as $endereco)
-                        <tr>
-                            <th scope="row">{{$endereco->id}}</th>
-                            <td><a href="{{route('home',['slug'=> $endereco->slug])}}" target="_blank">{{route('home',['slug'=> $endereco->slug])}}</a></td>
-                            <td>{{$endereco->slug_para}}</td>
-                            <td><button type="button" class="btn btn-outline-primary">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button></td>
-                        </tr>
-                        @empty
-                            <tr>
-                                <th colspan="4">Não tem valores a exibir :)</th>
-                            </tr>
-                        @endforelse
-                        </tbody>
-                    </table>
-                </div>
+        <div class="rounded-b-lg border-t border-gray-200 px-4 py-2">
+            <ol class="flex justify-end gap-1 text-xs font-medium">
+                <li>
+                    <a
+                        href="#"
+                        class="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
+                    >
+                        <span class="sr-only">Prev Page</span>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-3 w-3"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                clip-rule="evenodd"
+                            />
+                        </svg>
+                    </a>
+                </li>
 
-                <div class="modal fade" id="adicionarEndereco" tabindex="-1" aria-labelledby="adicionarEndereco" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="adicionarEndereco">Adicionar novo endereço:</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form id="adicionarEnderecoForm" action="{{route('endereco.store')}}" method="post">
-                                    @csrf
-                                    <div class="mb-3">
-                                        <label for="slug" class="col-form-label">Url curta:</label>
-                                        <input type="text" name="slug" class="form-control" id="slug" readonly>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="slug_para" class="col-form-label">Redirecionar para:</label>
-                                        <input type="text" name="slug_para" class="form-control" id="slug_para">
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                                <button type="submit" class="btn btn-primary"  onclick="form_submit()">Salvar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <li>
+                    <a
+                        href="#"
+                        class="block size-8 rounded border border-gray-100 bg-white text-center leading-8 text-gray-900"
+                    >
+                        1
+                    </a>
+                </li>
 
-            </div>
+                <li class="block size-8 rounded border-blue-600 bg-blue-600 text-center leading-8 text-white">
+                    2
+                </li>
+
+                <li>
+                    <a
+                        href="#"
+                        class="block size-8 rounded border border-gray-100 bg-white text-center leading-8 text-gray-900"
+                    >
+                        3
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        href="#"
+                        class="block size-8 rounded border border-gray-100 bg-white text-center leading-8 text-gray-900"
+                    >
+                        4
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        href="#"
+                        class="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
+                    >
+                        <span class="sr-only">Next Page</span>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-3 w-3"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                clip-rule="evenodd"
+                            />
+                        </svg>
+                    </a>
+                </li>
+            </ol>
         </div>
     </div>
 </x-app-layout>
@@ -96,6 +150,7 @@
             modalBodyInput.value = recipient
         })
     }
+
     function uuid() {
         return 'xxxx-4xxx-yxxx'
             .replace(/[xy]/g, function (c) {
