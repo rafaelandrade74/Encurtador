@@ -48,7 +48,7 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="adicionarEndereco">New message</h1>
+                                <h1 class="modal-title fs-5" id="adicionarEndereco">Adicionar novo endereço:</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -83,27 +83,28 @@
             // Button that triggered the modal
             const button = event.relatedTarget
             // Extract info from data-bs-* attributes
-            const guid = uuidv4();
+            const guid = uuid();
             const recipient = `${guid}`
             // If necessary, you could initiate an Ajax request here
             // and then do the updating in a callback.
 
             // Update the modal's content. #slug
-            const modalTitle = adicionarEndereco.querySelector('.modal-title')
+            //const modalTitle = adicionarEndereco.querySelector('.modal-title')
             const modalBodyInput = adicionarEndereco.querySelector('#slug')
 
-            modalTitle.textContent = `Adicionar novo endereço!`
+            //modalTitle.textContent = `Adicionar novo endereço!`
             modalBodyInput.value = recipient
         })
     }
-    function uuidv4() {
+    function uuid() {
         return 'xxxx-4xxx-yxxx'
             .replace(/[xy]/g, function (c) {
                 const r = Math.random() * 16 | 0,
-                    v = c == 'x' ? r : (r & 0x3 | 0x8);
+                    v = c === 'x' ? r : (r & 0x3 | 0x8);
                 return v.toString(16);
             });
     }
+
     function form_submit() {
         let form = document.querySelector("#adicionarEnderecoForm");
         form.submit();
