@@ -16,6 +16,7 @@
                 <thead class="bg-slate-50">
                 <tr>
                     <th class="w-1 border border-slate-300 font-semibold p-4 text-slate-900 text-left">#</th>
+                    <th class="w-1/2 border border-slate-300 font-semibold p-4 text-slate-900 text-left">Nome</th>
                     <th class="w-1/2 border border-slate-300 font-semibold p-4 text-slate-900 text-left">De</th>
                     <th class="w-1/2 border border-slate-300 font-semibold p-4 text-slate-900 text-left">Para</th>
                     <th class="w-1 border border-slate-300 font-semibold p-4 text-slate-900 text-left">#Ação</th>
@@ -25,6 +26,7 @@
                 @forelse($enderecos as $endereco)
                     <tr>
                         <td class="border border-slate-300 p-4 text-black-500">{{$endereco->id}}</td>
+                        <td class="border border-slate-300 p-4 text-black-500">{{$endereco->nome}}</td>
                         <td class="border border-slate-300 p-4 text-black-500">
                             <a href="{{route('home',['slug'=> $endereco->slug])}}"
                                target="_blank">{{route('home',['slug'=> $endereco->slug])}}</a>
@@ -68,7 +70,7 @@
                 @endphp
 
                 @for($page = $enderecos->currentPage(); $page <= $enderecos->lastPage(); $page++)
-                    @if(($enderecos->lastPage() - $page) < 5 && $contador == 0)
+                    @if($enderecos->lastPage() !== 1 && ($enderecos->lastPage() - $page) < 5 && $contador == 0)
                         @php $page = $enderecos->lastPage() - 4; @endphp
                     @endif
                     @if($contador < 5)

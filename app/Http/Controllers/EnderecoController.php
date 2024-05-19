@@ -20,12 +20,19 @@ class EnderecoController extends Controller
         return view('endereco.index', compact('enderecos'));
     }
 
+    public function view(int $id)
+    {
+        $endereco = Endereco::find($id);
+
+        return view('endereco.view', compact('endereco'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
     public function create(Request $request)
     {
-        dd($request->all());
+        return view('endereco.create');
     }
 
     /**
@@ -33,21 +40,27 @@ class EnderecoController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $validated = (object)$request->validate([
             'slug' => 'required|max:255',
             'slug_para' => 'required|max:255',
+            'nome' => 'required|max:255',
         ]);
-        dd($validated);
-        $jaExiste = Endereco::where('slug_para', $slug_para)->first();
+
+        $jaExiste = Endereco::where('slug_para', $validated->slug_para)->first();
         if ($jaExiste == null) {
-            $usuario = auth()->user();
+            $user = auth()->user();
             $endereco = new Endereco();
-            $endereco->slug = $slug;
-            $endereco->slug_para = $slug_para;
-            $endereco->id_usuario = $usuario->id;
-            $endereco->save();
+            $endereco->nome = $validated->nome;
+            $endereco->slug = $validated->slug;
+            $endereco->slug_para = $validated->slug_para;
+            $endereco->id_usuario = $user->id;
+            $resultado = $endereco->save();
+
+            if ($resultado) {
+                return redirect()->route('endereco.view', ['id'=>$endereco->id])->with('success', 'Endereco cadastrado com sucesso!');
+            }
         }
-        return redirect()->route('endereco');
+        return view('endereco.create');
     }
 
     /**
