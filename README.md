@@ -32,6 +32,8 @@
         - GET /profile
         - PATCH /profile
         - DELETE /profile
+    - Dashborad
+        - GET /dashboard
 
 
 # Dev
