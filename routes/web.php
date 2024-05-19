@@ -9,9 +9,8 @@ use App\Http\Controllers\HomeController;
 //   echo phpinfo();
 //});
 
-Route::prefix('/Home')->group(function () {
-    Route::get('/{slug?}', [HomeController::class, 'index'])->name('home');
-});
+
+Route::get('/home/{slug?}', [HomeController::class, 'index'])->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
