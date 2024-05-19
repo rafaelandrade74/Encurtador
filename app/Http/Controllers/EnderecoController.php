@@ -11,9 +11,12 @@ class EnderecoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(int $page = 1)
     {
-        $enderecos = Endereco::all();
+        $page = $page < 1 ? 1 : $page;
+        $registros = $page * 10;
+        $enderecos = Endereco::paginate($registros);
+
         return view('endereco.index', compact('enderecos'));
     }
 
@@ -30,11 +33,13 @@ class EnderecoController extends Controller
      */
     public function store(Request $request)
     {
-        $slug = $request->get('slug');
-        $slug_para = $request->get('slug_para');
-
+        $validated = $request->validate([
+            'slug' => 'required|max:255',
+            'slug_para' => 'required|max:255',
+        ]);
+        dd($validated);
         $jaExiste = Endereco::where('slug_para', $slug_para)->first();
-        if($jaExiste == null){
+        if ($jaExiste == null) {
             $usuario = auth()->user();
             $endereco = new Endereco();
             $endereco->slug = $slug;
@@ -72,8 +77,13 @@ class EnderecoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Endereco $endereco)
+    public function destroy(int $endereco)
     {
-        //
+        try {
+            $resultado = Endereco::destroy($endereco);
+            return response()->json(['resultado' => $resultado, 'erro' => false], 200);
+        } catch (\Illuminate\Database\QueryException $e) {
+            return response()->json(['resultado' => '', 'erro' => true], 500);
+        }
     }
 }

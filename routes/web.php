@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EnderecoController;
 use App\Http\Controllers\HomeController;
 
+//Route::get('/',function (){
+//   echo phpinfo();
+//});
 
 Route::prefix('/Home')->group(function () {
     Route::get('/{slug?}', [HomeController::class, 'index'])->name('home');
@@ -16,7 +19,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::prefix('/Endereco')->group(function(){
-        Route::get('/', [EnderecoController::class,'index'])->name('endereco');
+        Route::get('/{page?}', [EnderecoController::class,'index'])->name('endereco');
         Route::get('/create', [EnderecoController::class,'create'])->name('endereco.create');
         Route::post('/store', [EnderecoController::class,'store'])->name('endereco.store');
         Route::get('/edit/{endereco}', [EnderecoController::class,'edit'])->name('endereco.edit');

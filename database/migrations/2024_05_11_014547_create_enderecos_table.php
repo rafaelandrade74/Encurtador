@@ -13,12 +13,11 @@ return new class extends Migration
     {
         Schema::create('enderecos', function (Blueprint $table) {
             $table->id();
-            $table->string('slug');
-            $table->string('slug_para');
+            $table->string('nome');
+            $table->string('slug')->unique(true);
+            $table->string('slug_para')->unique(true);
             $table->foreignId('id_usuario')
-                ->constrained('users')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+                ->constrained('users');
             $table->timestamps();
         });
     }

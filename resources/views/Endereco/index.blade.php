@@ -6,7 +6,8 @@
     </x-slot>
     <div class="rounded-lg border border-gray-200 m-5 px-1 py-8 sm:px-8">
         <div class="overflow-x-auto rounded-t-lg text-end pb-5 pt-1 px-4">
-            <a href="#" class="inline-block border-e rounded bg-blue-800 px-4 py-2 text-xs font-medium text-white hover:bg-blue-600">
+            <a href="{{route('endereco.create')}}"
+               class="inline-block border-e rounded bg-blue-800 px-4 py-2 text-xs font-medium text-white hover:bg-blue-600">
                 <i class="bi bi-plus-circle"></i> Adicionar
             </a>
         </div>
@@ -35,7 +36,7 @@
                                class="inline-block border-e p-5 rounded bg-indigo-800 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-600">
 								<i class="bi bi-pencil-square"></i> Editar
 							</a>
-							<a href="#DELETE"
+							<a onclick="delEndereco({{$endereco->id}})" href="#"
                                class="inline-block border-l p-5 rounded border-black bg-red-700 px-4 py-2 text-xs font-medium text-white hover:hover:bg-red-400">
 								<i class="bi bi-pencil-square"></i> Deletar
 							</a>
@@ -55,113 +56,102 @@
         <div class="rounded-b-lg border-t border-gray-200 px-4 py-2">
             <ol class="flex justify-end gap-1 text-xs font-medium">
                 <li>
-                    <a
-                        href="#"
-                        class="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
-                    >
+                    <a href="{{$enderecos->previousPageUrl()}}"
+                       class="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180">
                         <span class="sr-only">Prev Page</span>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-3 w-3"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                        >
-                            <path
-                                fill-rule="evenodd"
-                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                clip-rule="evenodd"
-                            />
-                        </svg>
+                        <i class="bi bi-chevron-left"></i>
                     </a>
                 </li>
 
-                <li>
-                    <a
-                        href="#"
-                        class="block size-8 rounded border border-gray-100 bg-white text-center leading-8 text-gray-900"
-                    >
-                        1
-                    </a>
-                </li>
+                @php
+                    $contador = 0;
+                @endphp
 
-                <li class="block size-8 rounded border-blue-600 bg-blue-600 text-center leading-8 text-white">
-                    2
-                </li>
+                @for($page = $enderecos->currentPage(); $page <= $enderecos->lastPage(); $page++)
+                    @if(($enderecos->lastPage() - $page) < 5 && $contador == 0)
+                        @php $page = $enderecos->lastPage() - 4; @endphp
+                    @endif
+                    @if($contador < 5)
+                        @php
+                            $contador++;
+                        @endphp
+                        <li><a href="{{$enderecos->currentPage() == $page ? "#" : $enderecos->url($page)}}"
+                               class="{{$enderecos->currentPage() == $page ? "block size-8 rounded border-blue-600 bg-blue-600 text-center leading-8 text-white"
+                                : "block size-8 rounded border border-gray-100 bg-white text-center leading-8 text-gray-900"}}">
+                                {{$page}}
+                            </a>
+                        </li>
 
-                <li>
-                    <a
-                        href="#"
-                        class="block size-8 rounded border border-gray-100 bg-white text-center leading-8 text-gray-900"
-                    >
-                        3
-                    </a>
-                </li>
+                    @endif
 
+                    @php
+                        if($contador == 5){
+                            $contador = 0;
+                            break;
+                        }
+                    @endphp
+                @endfor
                 <li>
-                    <a
-                        href="#"
-                        class="block size-8 rounded border border-gray-100 bg-white text-center leading-8 text-gray-900"
-                    >
-                        4
-                    </a>
-                </li>
-
-                <li>
-                    <a
-                        href="#"
-                        class="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
-                    >
+                    <a href="{{$enderecos->nextPageUrl()}}"
+                       class="inline-flex size-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180">
                         <span class="sr-only">Next Page</span>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-3 w-3"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                        >
-                            <path
-                                fill-rule="evenodd"
-                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                clip-rule="evenodd"
-                            />
-                        </svg>
+                        <i class="bi bi-chevron-right"></i>
                     </a>
                 </li>
             </ol>
         </div>
     </div>
 </x-app-layout>
+
 <script>
-    const adicionarEndereco = document.getElementById('adicionarEndereco')
-    if (adicionarEndereco) {
-        adicionarEndereco.addEventListener('show.bs.modal', event => {
-            // Button that triggered the modal
-            const button = event.relatedTarget
-            // Extract info from data-bs-* attributes
-            const guid = uuid();
-            const recipient = `${guid}`
-            // If necessary, you could initiate an Ajax request here
-            // and then do the updating in a callback.
+    function delEndereco(id) {
 
-            // Update the modal's content. #slug
-            //const modalTitle = adicionarEndereco.querySelector('.modal-title')
-            const modalBodyInput = adicionarEndereco.querySelector('#slug')
+        Swal.fire({
+            title: "Você tem certeza?",
+            text: `Gostaria de deletar o id ${id}!`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sim, Deletar!",
+            cancelButtonText: "Não!!!"
+        }).then((result) => {
+            if (result.isConfirmed) {
 
-            //modalTitle.textContent = `Adicionar novo endereço!`
-            modalBodyInput.value = recipient
-        })
-    }
-
-    function uuid() {
-        return 'xxxx-4xxx-yxxx'
-            .replace(/[xy]/g, function (c) {
-                const r = Math.random() * 16 | 0,
-                    v = c === 'x' ? r : (r & 0x3 | 0x8);
-                return v.toString(16);
-            });
-    }
-
-    function form_submit() {
-        let form = document.querySelector("#adicionarEnderecoForm");
-        form.submit();
+                const url = '{{route('endereco.destroy',['endereco' =>'@identificador'])}}'.replace('@identificador', id);
+                const token = '{{csrf_token()}}';
+                $.ajax({
+                    type: "delete",
+                    url: url,
+                    data: {
+                        "_token" : token
+                    },
+                    headers: {'X-CSRF-TOKEN': token},
+                    contentType: false,
+                    processData: false,
+                    error: function (data){
+                        console.log(data.responseJSON);
+                        let retorno = "";
+                        if(data.responseJSON !== undefined && data.responseJSON.message !== undefined) retorno = data.responseJSON.message;
+                        Swal.fire({
+                            title: 'Erro',
+                            html: retorno,
+                            icon: 'error',
+                            confirmButtonText: 'Ok'
+                        });
+                    },
+                    success: function (data){
+                        Swal.fire({
+                            title: 'Deletado!',
+                            html: `O Id ${id} foi deletado.`,
+                            icon: 'success',
+                            confirmButtonText: 'Ok'
+                        }).then(() => {
+                            document.location.href = '{{route('endereco',['page'=> 1])}}';
+                        });
+                    }
+                });
+            }
+        });
     }
 </script>
