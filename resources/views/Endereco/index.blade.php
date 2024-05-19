@@ -147,7 +147,7 @@
                             icon: 'success',
                             confirmButtonText: 'Ok'
                         }).then(() => {
-                            document.location.href = '{{route('endereco',['page'=> 1])}}';
+                            document.location.href = '{{route('endereco')}}';
                         });
                     }
                 });
