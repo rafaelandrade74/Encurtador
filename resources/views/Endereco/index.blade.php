@@ -142,7 +142,7 @@
                             confirmButtonText: 'Ok'
                         });
                     },
-                    success: function (data){
+                    success: function (){
                         Swal.fire({
                             title: 'Deletado!',
                             html: `O Id ${id} foi deletado.`,
