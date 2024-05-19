@@ -70,7 +70,7 @@ class EnderecoController extends Controller
                 $resultado = $endereco->save();
 
                 if ($resultado) {
-                    return redirect()->route('endereco.view', ['id' => $endereco->id])->with('success', 'Endereco cadastrado com sucesso!');
+                    return redirect()->route('endereco.view', ['id' => $endereco->id])->with('success', 'endereco cadastrado com sucesso!');
                 }
             }
             return view('endereco.create');
@@ -120,7 +120,7 @@ class EnderecoController extends Controller
             $resultado = $endereco->update();
 
             if ($resultado) {
-                return redirect()->route('endereco.view', ['id' => $endereco->id])->with('success', 'Endereco atualizado com sucesso!');
+                return redirect()->route('endereco.view', ['id' => $endereco->id])->with('success', 'endereco atualizado com sucesso!');
             }
             return view('endereco.edit', compact('endereco'));
         }catch (\Exception $e){

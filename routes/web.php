@@ -18,7 +18,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::prefix('/Endereco')->group(function(){
+    Route::prefix('/endereco')->group(function(){
         Route::get('/index/{page?}', [EnderecoController::class,'index'])->name('endereco');
         Route::get('/view/{id?}', [EnderecoController::class,'view'])->name('endereco.view');
         Route::get('/create', [EnderecoController::class,'create'])->name('endereco.create');
