@@ -11,6 +11,28 @@
   - [axios](https://github.com/axios/axios);
   - [tailwindcss](https://tailwindcss.com/);
 
+### Rotas
+
+- Home
+  - GET /home/link
+- Autenticação
+  - GET /login
+- Raiz
+    - GET /
+        - redireciona para a url de fallback configurada na variável APP_URL_FALLBACK 
+- Rotas protegidas por autenticação:
+    - Endereço
+        - GET /endereco/index
+        - GET /endereco/create
+        - POST /endereco/store
+        - GET /endereco/edit
+        - POST /endereco/update
+        - DELETE /endereco/destroy
+    - Profile
+        - GET /profile
+        - PATCH /profile
+        - DELETE /profile
+
 
 # Dev
 
