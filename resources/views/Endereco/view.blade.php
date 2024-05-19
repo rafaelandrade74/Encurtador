@@ -9,7 +9,7 @@
             <main class="flex justify-center px-8 py-8 col-span-12">
                 <div class="max-w-xl lg:max-w-3xl">
                     <h1 class="mt-1 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
-                        {{$endereco->nome}} 🌐
+                        {{$endereco->nome}}
                     </h1>
                     <div class="mt-8 grid grid-cols-6 gap-6">
                         <div class="col-span-5">
@@ -19,7 +19,7 @@
 
                             <input
                                 type="text"
-                                id="slug"
+                                id="slug_url"
                                 name="slug"
                                 class="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                                 readonly

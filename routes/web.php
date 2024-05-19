@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/create', [EnderecoController::class,'create'])->name('endereco.create');
         Route::post('/store', [EnderecoController::class,'store'])->name('endereco.store');
         Route::get('/edit/{endereco}', [EnderecoController::class,'edit'])->name('endereco.edit');
-        Route::put('/update/{endereco}', [EnderecoController::class,'update'])->name('endereco.update');
+        Route::post('/update/{endereco}', [EnderecoController::class,'update'])->name('endereco.update');
         Route::delete('/destroy/{endereco}', [EnderecoController::class,'destroy'])->name('endereco.destroy');
     });
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
