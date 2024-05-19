@@ -9,7 +9,7 @@ use Psy\Readline\Hoa\Console;
 
 class HomeController extends Controller
 {
-    public function index(Request $request, string $slug = "")
+    public function index(Request $request, string $slug = "/")
     {
         try {
             $visita = new EnderecoVisita();

@@ -35,7 +35,7 @@
                             </button>
                         </div>
 
-                        <div class="col-span-6">
+                        <div class="col-span-5">
                             <label for="slug_para" class="block text-sm font-medium text-gray-700">
                                 Url para redirecionar 🌐:
                             </label>
@@ -49,6 +49,11 @@
                                 readonly
                                 value="{{$endereco->slug_para}}"
                             />
+                        </div>
+                        <div class="col-span-1 mt-6">
+                            <label for="slug_para" class="block text-sm font-medium text-gray-700">
+                                Número de clicks: {{$visitas}}
+                            </label>
                         </div>
 
                     </div>

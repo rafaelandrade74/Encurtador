@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Endereco;
+use App\Models\EnderecoVisita;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use function PHPUnit\Framework\isNull;
 
@@ -31,10 +33,15 @@ class EnderecoController extends Controller
     {
         try {
             $endereco = Endereco::find($id);
-            return view('endereco.view', compact('endereco'));
+            $visitas = DB::table('enderecos_visitas')
+                    ->where('rota', $endereco->slug)
+                    ->count();
+
+            return view('endereco.view', compact(['endereco','visitas']));
         }catch (\Exception $e){
+            dd($e->getMessage());
             Log::error($e->getMessage());
-            return redirect()->route('endereco.index')->withErrors(['error' => 'Ocorreu um erro ao recuperar o endereço!']);
+            return redirect()->route('endereco')->withErrors(['error' => 'Ocorreu um erro ao recuperar o endereço!']);
         }
 
     }
