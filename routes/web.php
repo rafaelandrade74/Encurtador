@@ -19,7 +19,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::prefix('/Endereco')->group(function(){
-        Route::get('/{page?}', [EnderecoController::class,'index'])->name('endereco');
+        Route::get('/view/{page?}', [EnderecoController::class,'index'])->name('endereco');
         Route::get('/create', [EnderecoController::class,'create'])->name('endereco.create');
         Route::post('/store', [EnderecoController::class,'store'])->name('endereco.store');
         Route::get('/edit/{endereco}', [EnderecoController::class,'edit'])->name('endereco.edit');
