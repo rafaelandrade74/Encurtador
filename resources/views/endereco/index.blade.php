@@ -34,6 +34,10 @@
                         <td class="border border-slate-300 p-4 text-black-500">{{$endereco->slug_para}}</td>
                         <td class="border order-slate-300 whitespace-nowrap px-4 py-2">
 						<span class="inline-flex overflow-hidden rounded-md border bg-white shadow-sm">
+                            <a href="{{route('endereco.view',['id'=> $endereco->id])}}"
+                               class="inline-block border-e p-5 rounded bg-indigo-800 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-600">
+								<i class="bi bi-eye"></i> Visualizar
+							</a>
 							<a href="{{route('endereco.edit',['endereco'=> $endereco->id])}}"
                                class="inline-block border-e p-5 rounded bg-indigo-800 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-600">
 								<i class="bi bi-pencil-square"></i> Editar

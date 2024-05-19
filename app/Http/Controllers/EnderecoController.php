@@ -39,7 +39,6 @@ class EnderecoController extends Controller
 
             return view('endereco.view', compact(['endereco','visitas']));
         }catch (\Exception $e){
-            dd($e->getMessage());
             Log::error($e->getMessage());
             return redirect()->route('endereco')->withErrors(['error' => 'Ocorreu um erro ao recuperar o endereço!']);
         }
